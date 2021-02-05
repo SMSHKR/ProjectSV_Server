@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'rest_api.apps.RestApiConfig',
+    'upload.apps.UploadConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
