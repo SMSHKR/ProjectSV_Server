@@ -16,13 +16,14 @@ def test(request):
 
 def train(request):
     if request.method == 'POST':
+        model = uuid.uuid4()
         files = request.FILES.getlist('images')
         fs = FileSystemStorage()
         for file in files:
-            fs.save(file.name, file)
+            fs.save(str(model) + '/' + file.name, file)
         response = {
             "test": 1,
-            "model": uuid.uuid4()
+            "model": model
         }
         return JsonResponse(response, safe=False)
     return HttpResponseNotFound()
