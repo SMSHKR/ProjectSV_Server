@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -12,11 +12,17 @@ from .scripts.training import trainModel
 
 # Create your views here.
 def test(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        return HttpResponse(fs.url(filename))
+    if request.method == 'POST':
+        model = request.POST.get('model')
+        image = request.FILES['image']
+        location = settings.MEDIA_ROOT + '/' + str(model) + '/'
+        fs = FileSystemStorage(location=location)
+        filename = fs.save(image.name, image)
+        response = {
+            'model': model,
+            'file': filename
+        }
+        return JsonResponse(response, safe=False)
     return HttpResponseNotFound()
 
 def train(request):
