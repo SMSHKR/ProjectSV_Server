@@ -2,8 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 import uuid
+import os
+
+from .train.imageprocessing import imagePreprocess
+from .train.training import trainModel
 
 # Create your views here.
 def test(request):
@@ -19,11 +24,11 @@ def train(request):
         model = uuid.uuid4()
         files = request.FILES.getlist('images')
         fs = FileSystemStorage()
+        path = settings.MEDIA_ROOT + '/' + str(model) + '/'
         for file in files:
             fs.save(str(model) + '/' + file.name, file)
-        response = {
-            "test": 1,
-            "model": model
-        }
+            imagePreprocess(path + file.name)
+        trainModel(path)
+        response = { "model": model }
         return JsonResponse(response, safe=False)
     return HttpResponseNotFound()
