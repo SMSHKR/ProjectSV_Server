@@ -25,10 +25,14 @@ def train(request):
         files = request.FILES.getlist('images')
         location = settings.MEDIA_ROOT + '/' + str(model) + '/'
         fs = FileSystemStorage(location=location)
+        filenames = list()
         for file in files:
             filename = fs.save(file.name, file)
             imagePreprocess(location + filename)
+            filenames.append(filename)
         trainModel(location)
+        for file in filenames:
+            fs.delete(file)
         response = { "model": model }
         return JsonResponse(response, safe=False)
     return HttpResponseNotFound()
