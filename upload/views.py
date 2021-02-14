@@ -7,8 +7,8 @@ from django.conf import settings
 import uuid
 import os
 
-from .train.imageprocessing import imagePreprocess
-from .train.training import trainModel
+from .scripts.imageprocessing import imagePreprocess
+from .scripts.training import trainModel
 
 # Create your views here.
 def test(request):
@@ -17,18 +17,18 @@ def test(request):
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         return HttpResponse(fs.url(filename))
-    return HttpResponse("Test Page")
+    return HttpResponseNotFound()
 
 def train(request):
     if request.method == 'POST':
         model = uuid.uuid4()
         files = request.FILES.getlist('images')
-        fs = FileSystemStorage()
-        path = settings.MEDIA_ROOT + '/' + str(model) + '/'
+        location = settings.MEDIA_ROOT + '/' + str(model) + '/'
+        fs = FileSystemStorage(location=location)
         for file in files:
-            fs.save(str(model) + '/' + file.name, file)
-            imagePreprocess(path + file.name)
-        trainModel(path)
+            filename = fs.save(file.name, file)
+            imagePreprocess(location + filename)
+        trainModel(location)
         response = { "model": model }
         return JsonResponse(response, safe=False)
     return HttpResponseNotFound()
