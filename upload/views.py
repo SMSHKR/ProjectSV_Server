@@ -9,6 +9,7 @@ import os
 
 from .scripts.imageprocessing import imagePreprocess
 from .scripts.training import trainModel
+from .scripts.testing import testSignature
 
 # Create your views here.
 def test(request):
@@ -18,10 +19,9 @@ def test(request):
         location = settings.MEDIA_ROOT + '/' + str(model) + '/'
         fs = FileSystemStorage(location=location)
         filename = fs.save(image.name, image)
-        response = {
-            'model': model,
-            'file': filename
-        }
+        imagePreprocess(location + filename)
+        response = testSignature(location, filename)
+        fs.delete(filename)
         return JsonResponse(response, safe=False)
     return HttpResponseNotFound()
 
