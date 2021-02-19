@@ -116,18 +116,18 @@ def trainModel(path):
     filename = 'KNN_finalized_model.sav'
     pickle.dump(neigh, open(path + filename, 'wb'))
     #knn_predict_result = neigh.predict(testfeatures)
-    y_pred = neigh.predict(X_test)
+    # y_pred = neigh.predict(X_test)
     
     # print(classification_report(y_test,y_pred))
     # print ("knn predict")
     # print(knn_predict_result)
 
-    print('Ensemble Creating...')
-    ensemble = VotingClassifier(estimators)
-    ensemble.fit(X_scaled, y_train)
-    X_scaled = preprocessing.scale(X_train)
-    filename = 'voted_finalized_model.sav'
-    pickle.dump(ensemble, open(path + filename, 'wb'))
+    # print('Ensemble Creating...')
+    # ensemble = VotingClassifier(estimators)
+    # ensemble.fit(X_scaled, y_train)
+    # X_scaled = preprocessing.scale(X_train)
+    # filename = 'voted_finalized_model.sav'
+    # pickle.dump(ensemble, open(path + filename, 'wb'))
     
     #result = ensemble.predict(testfeatures)
     # y_pred = ensemble.predict(X_test)

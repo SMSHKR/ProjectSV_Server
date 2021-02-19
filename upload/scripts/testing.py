@@ -73,26 +73,25 @@ def testSignature(path, image):
     print("Voted")
     print(result)  """
 
-    ensemble = VotingClassifier(estimators)
-    filename = 'voted_finalized_model.sav'
-    loaded_model = pickle.load(open(path + filename, 'rb'))
-    vote_result = loaded_model.predict(testfeatures)
-    print("Voted")
-    print(vote_result) 
-    percen = 0
+    # ensemble = VotingClassifier(estimators)
+    # filename = 'voted_finalized_model.sav'
+    # loaded_model = pickle.load(open(path + filename, 'rb'))
+    # vote_result = loaded_model.predict(testfeatures)
+    # print("Voted")
+    # print(vote_result) 
+    count = 0
     perse = [SVM_result.tolist(),MLP_result.tolist(),KNN_result.tolist()]
     #print(perse)
     for (res) in perse:
         if (res == ['fake']):
-            percen += 33
-            if (percen == 99):
-                percen = 100
+            count += 1
+            # if (percen == 99):
+            #     percen = 100
             #print(percen)
 
-    vote_result = vote_result.tolist()
     my_details = {
-        'vote': vote_result,
-        'fake_ratio': percen
+        'vote': count < 2,
+        'fake_ratio': count * (1/3) * 100
     }
     """ with open('personal.json', 'w') as json_file:
         json.dump(my_details, json_file) """
