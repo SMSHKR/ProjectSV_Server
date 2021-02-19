@@ -6,6 +6,7 @@ from django.conf import settings
 
 import uuid
 import os
+import random
 
 from .scripts.imageprocessing import imagePreprocess
 from .scripts.training import trainModel
@@ -33,7 +34,7 @@ def train(request):
         fs = FileSystemStorage(location=location)
         filenames = list()
         for file in files:
-            filename = fs.save(file.name, file)
+            filename = fs.save(random.choice(['gen.', 'fake.']) + file.name, file)
             imagePreprocess(location + filename)
             filenames.append(filename)
         trainModel(location)
