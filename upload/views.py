@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
-import uuid
 import os
+import shutil
 import random
 
 from .scripts.imageprocessing import imagePreprocess
@@ -28,7 +28,10 @@ def test(request):
 
 def train(request):
     if request.method == 'POST':
-        model = uuid.uuid4()
+        model = request.POST.get('old_model')
+        if model:
+            shutil.rmtree(settings.MEDIA_ROOT + '/' + model, ignore_errors=True)
+        model = request.POST.get('model')
         files = request.FILES.getlist('images')
         location = settings.MEDIA_ROOT + '/' + str(model) + '/'
         fs = FileSystemStorage(location=location)
