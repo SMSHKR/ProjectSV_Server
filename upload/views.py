@@ -36,8 +36,11 @@ def train(request):
         location = settings.MEDIA_ROOT + '/' + str(model) + '/'
         fs = FileSystemStorage(location=location)
         filenames = list()
+        count = 0
+        prefix = ['gen.', 'fake.']
         for file in files:
-            filename = fs.save(random.choice(['gen.', 'fake.']) + file.name, file)
+            filename = fs.save(prefix[count] + file.name, file)
+            count = (count + 1) % 2
             imagePreprocess(location + filename)
             filenames.append(filename)
         trainModel(location)
