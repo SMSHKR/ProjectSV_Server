@@ -91,7 +91,7 @@ def testSignature(path, image):
 
     my_details = {
         'vote': count < 2,
-        'fake_ratio': count * (1/3) * 100
+        'fake_ratio': count * (1/3)
     }
     """ with open('personal.json', 'w') as json_file:
         json.dump(my_details, json_file) """
