@@ -79,11 +79,11 @@ def trainModel(path):
     labels = np.array(labels)
     estimators = []
     # print(features.shape)
-    from sklearn.model_selection import train_test_split
+    """ from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.3, random_state=1)
-    from sklearn.metrics import classification_report
+    from sklearn.metrics import classification_report """
     # print(X_train)
-    
+    print(features.shape)
     # SVM
     print('SVM Training...')
     from sklearn.svm import SVC
@@ -91,7 +91,7 @@ def trainModel(path):
     params_svm = {"kernel":"rbf", "C":10, "gamma":0.000001}
     svclassifier.set_params(**params_svm)
     estimators.append(('svm', svclassifier))
-    svclassifier.fit(X_train, y_train)
+    svclassifier.fit(features, labels)
     filename = 'SVM_finalized_model.sav'
     pickle.dump(svclassifier, open(path + filename, 'wb'))
     #SVM_predict_result = svclassifier.predict(testfeatures)
@@ -108,8 +108,8 @@ def trainModel(path):
     from sklearn import preprocessing
     mlp = MLPClassifier(hidden_layer_sizes=(88,48,28,8), activation='relu', solver='lbfgs', max_iter=50 ,random_state=42) #48 72 80 r 70
     estimators.append(('mlp', mlp))
-    X_scaled = preprocessing.scale(X_train)
-    mlp.fit(X_scaled,y_train)
+    
+    mlp.fit(features,labels)
     filename = 'MLP_finalized_model.sav'
     pickle.dump(mlp, open(path + filename, 'wb'))
     #mlp_predict_result = mlp.predict(testfeatures)
@@ -122,7 +122,7 @@ def trainModel(path):
     from sklearn.neighbors import KNeighborsClassifier
     neigh = KNeighborsClassifier(n_neighbors=5)
     estimators.append(('knn', neigh))
-    neigh.fit(X_train, y_train)
+    neigh.fit(features, labels)
     filename = 'KNN_finalized_model.sav'
     pickle.dump(neigh, open(path + filename, 'wb'))
     #knn_predict_result = neigh.predict(testfeatures)
