@@ -22,7 +22,10 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.ensemble import VotingClassifier
 from sklearn.utils.estimator_checks import check_estimator
-
+from fakesign import grid
+from fakesign import masking
+from fakesign import rotate_image
+from fakesign import gauss
 def image_to_feature_vector(image, size=(32, 32)):
 	return cv2.resize(image,size).flatten()
 
@@ -39,19 +42,26 @@ def trainModel(path):
     features = []
     labels = []
     #testfeatures = []
+    """ for (i, imagePath) in enumerate(imagePaths):
+    	image = cv2.imread(imagePath,0)
+    	grid(path,image) """
+    
+    
     for (i, imagePath) in enumerate(imagePaths):
     	# load the image and extract the class label (assuming that our
     	# path as the format: /path/to/dataset/{class}.{image_num}.jpg
-    	image = cv2.imread(imagePath)
+    	image = cv2.imread(imagePath,0)
+        fimage = grid(image,cap,gridsize)
     	""" outfile = '%sall%s.jpg' % ('Preprocess\\', str(i))
     	image = all(imagePath,outfile) """
     	label = imagePath.split(os.path.sep)[-1].split(".")[0]
 
     	pixels = image_to_feature_vector(image)
-    
+        fpixels = image_to_feature_vector(fimage)
     	features.append(pixels)
     	labels.append(label)
-
+        features.append(fpixels)
+        labels.append('fake')
     	# show an update every 1,000 images
     	# if i > 0 and i % 1000 == 0:
     		# print("[INFO] processed {}/{}".format(i, len(imagePaths)))
@@ -134,3 +144,4 @@ def trainModel(path):
     # print(classification_report(y_test,y_pred))
     # print("Voted")
     # print(result) 
+trainModel('D:/RP_Only/pcv/ProjectModel/largetestex')
