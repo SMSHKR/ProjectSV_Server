@@ -39,7 +39,7 @@ def train(request):
         # count = 0
         # prefix = ['gen.', 'fake.']
         for file in files:
-            filename = fs.save(file.name, file)
+            filename = fs.save('gen.' + file.name, file)
             # count = (count + 1) % 2
             imagePreprocess(location + filename)
             filenames.append(filename)
