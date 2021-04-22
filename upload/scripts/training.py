@@ -46,7 +46,7 @@ def trainModel(path):
     	image = cv2.imread(imagePath,0)
     	grid(path,image) """
     
-    
+    print('Fake signatures generating...')
     for (i, imagePath) in enumerate(imagePaths):
     	# load the image and extract the class label (assuming that our
     	# path as the format: /path/to/dataset/{class}.{image_num}.jpg
