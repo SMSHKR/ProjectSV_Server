@@ -22,10 +22,10 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.ensemble import VotingClassifier
 from sklearn.utils.estimator_checks import check_estimator
-from fakesign import grid
-from fakesign import masking
-from fakesign import rotate_image
-from fakesign import gauss
+from .fakesign import grid
+from .fakesign import masking
+from .fakesign import rotate_image
+from .fakesign import gauss
 def image_to_feature_vector(image, size=(32, 32)):
 	return cv2.resize(image,size).flatten()
 
@@ -144,4 +144,3 @@ def trainModel(path):
     # print(classification_report(y_test,y_pred))
     # print("Voted")
     # print(result) 
-trainModel('D:/RP_Only/pcv/ProjectModel/shintrain3')
