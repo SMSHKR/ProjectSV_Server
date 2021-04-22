@@ -143,4 +143,5 @@ def trainModel(path):
     # y_pred = ensemble.predict(X_test)
     # print(classification_report(y_test,y_pred))
     # print("Voted")
-    # print(result) 
+    # print(result)
+
