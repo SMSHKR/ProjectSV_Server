@@ -25,10 +25,11 @@ def testSignature(path, image):
     #testPaths = list(paths.list_images(path + image))
     testfeatures = []
     estimators = []
-    image = cv2.imread(path + image)
+    image = cv2.imread(path + image,0)
     pixels = image_to_feature_vector(image)
     testfeatures.append(pixels)
     testfeatures = np.array(testfeatures)
+    print(testfeatures.shapes)
     """ for (i, imagePath) in enumerate(testPaths):
     	# load the image and extract the class label (assuming that our
     	# path as the format: /path/to/dataset/{class}.{image_num}.jpg
