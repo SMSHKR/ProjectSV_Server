@@ -95,8 +95,8 @@ def trainModel(path):
     filename = 'SVM_finalized_model.sav'
     pickle.dump(svclassifier, open(path + filename, 'wb'))
     #SVM_predict_result = svclassifier.predict(testfeatures)
-    score = svclassifier.score
-    y_pred = svclassifier.predict(X_test)
+    """ score = svclassifier.score
+    y_pred = svclassifier.predict(X_test) """
     # print(classification_report(y_test,y_pred))
     # print ("svm predict")
     # print(SVM_predict_result)
@@ -113,7 +113,7 @@ def trainModel(path):
     filename = 'MLP_finalized_model.sav'
     pickle.dump(mlp, open(path + filename, 'wb'))
     #mlp_predict_result = mlp.predict(testfeatures)
-    y_pred = mlp.predict(X_test)
+    """ y_pred = mlp.predict(X_test) """
     # print(classification_report(y_test,y_pred,zero_division=1))
     # print ("mlp predict")
     # print(mlp_predict_result)
