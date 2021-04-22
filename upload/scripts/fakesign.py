@@ -58,7 +58,7 @@ def grid(img,cap,gridsize):
 
                 img[r:r+windowsize_r,c:c+windowsize_c] = window
         return img
-
+    
 def masking(img,cap):
     mask=np.array( [False]*9)
     inds=np.random.choice(np.arange(9),size=9)
