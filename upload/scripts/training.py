@@ -51,17 +51,17 @@ def trainModel(path):
     	# load the image and extract the class label (assuming that our
     	# path as the format: /path/to/dataset/{class}.{image_num}.jpg
     	image = cv2.imread(imagePath,0)
-        fimage = grid(image,cap,gridsize)
+    	fimage = grid(image,90,32)
     	""" outfile = '%sall%s.jpg' % ('Preprocess\\', str(i))
     	image = all(imagePath,outfile) """
     	label = imagePath.split(os.path.sep)[-1].split(".")[0]
 
     	pixels = image_to_feature_vector(image)
-        fpixels = image_to_feature_vector(fimage)
+    	fpixels = image_to_feature_vector(fimage)
     	features.append(pixels)
     	labels.append(label)
-        features.append(fpixels)
-        labels.append('fake')
+    	features.append(fpixels)
+    	labels.append('fake')
     	# show an update every 1,000 images
     	# if i > 0 and i % 1000 == 0:
     		# print("[INFO] processed {}/{}".format(i, len(imagePaths)))
@@ -144,4 +144,4 @@ def trainModel(path):
     # print(classification_report(y_test,y_pred))
     # print("Voted")
     # print(result) 
-trainModel('D:/RP_Only/pcv/ProjectModel/largetestex')
+trainModel('D:/RP_Only/pcv/ProjectModel/shintrain3')

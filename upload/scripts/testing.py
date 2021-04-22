@@ -105,5 +105,3 @@ def testSignature(path, image):
     print(result)  """
 
     """json 2 paramiter  """
-img = cv2.imread('D:/RP_Only/pcv/ProjectModel/testfeature2/',0)
-testSignature('D:/RP_Only/pcv/ProjectModel/largetestex', 'fake.1.jpg')
