@@ -47,8 +47,8 @@ def testSignature(path, image):
     estimators.append(('svm', loaded_model))
     print ("SVM_predict")
     print(SVM_result)
-
-    filename = 'MLP_finalized_model.sav'
+    SVM_prob = loaded_model.predict_proba(testfeatures)
+    """ filename = 'MLP_finalized_model.sav'
     loaded_model = pickle.load(open(path + filename, 'rb'))
     MLP_result = loaded_model.predict(testfeatures)
     estimators.append(('mlp', loaded_model))
@@ -60,7 +60,7 @@ def testSignature(path, image):
     KNN_result = loaded_model.predict(testfeatures)
     estimators.append(('knn', loaded_model))
     print ("knn predict")
-    print(KNN_result)
+    print(KNN_result) """
 
     """ ensemble = VotingClassifier(estimators,voting='soft') #fit_base_estimators=False
     #ensemble.fit
@@ -80,18 +80,15 @@ def testSignature(path, image):
     # print("Voted")
     # print(vote_result) 
     count = 0
-    perse = [SVM_result.tolist(),MLP_result.tolist(),KNN_result.tolist()]
-    #print(perse)
-    for (res) in perse:
-        if (res == ['fake']):
-            count += 1
-            # if (percen == 99):
-            #     percen = 100
-            #print(percen)
+    perse = [SVM_result.tolist()]
+    if(perse == ['fake']):
+        count = False
+    else:
+        count = True
 
     my_details = {
-        'vote': count < 2,
-        'fake_ratio': count * (1/3)
+        'vote': count,
+        'fake_ratio': SVM_prob[1]
     }
     """ with open('personal.json', 'w') as json_file:
         json.dump(my_details, json_file) """

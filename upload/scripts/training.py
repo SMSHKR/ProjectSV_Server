@@ -87,7 +87,7 @@ def trainModel(path):
     # SVM
     print('SVM Training...')
     from sklearn.svm import SVC
-    svclassifier = SVC(kernel='linear')
+    svclassifier = SVC(kernel='linear',probability=True)
     params_svm = {"kernel":"rbf", "C":10, "gamma":0.000001}
     svclassifier.set_params(**params_svm)
     estimators.append(('svm', svclassifier))
@@ -103,7 +103,7 @@ def trainModel(path):
     # print(score)
 
     # MLP
-    print('MLP Training...')
+    """ print('MLP Training...')
     from sklearn.neural_network import MLPClassifier
     from sklearn import preprocessing
     mlp = MLPClassifier(hidden_layer_sizes=(88,48,28,8), activation='relu', solver='lbfgs', max_iter=50 ,random_state=42) #48 72 80 r 70
@@ -111,20 +111,20 @@ def trainModel(path):
     
     mlp.fit(features,labels)
     filename = 'MLP_finalized_model.sav'
-    pickle.dump(mlp, open(path + filename, 'wb'))
+    pickle.dump(mlp, open(path + filename, 'wb')) """
     #mlp_predict_result = mlp.predict(testfeatures)
     """ y_pred = mlp.predict(X_test) """
     # print(classification_report(y_test,y_pred,zero_division=1))
     # print ("mlp predict")
     # print(mlp_predict_result)
 
-    print('KNN Training...')
+    """ print('KNN Training...')
     from sklearn.neighbors import KNeighborsClassifier
     neigh = KNeighborsClassifier(n_neighbors=5)
     estimators.append(('knn', neigh))
     neigh.fit(features, labels)
     filename = 'KNN_finalized_model.sav'
-    pickle.dump(neigh, open(path + filename, 'wb'))
+    pickle.dump(neigh, open(path + filename, 'wb')) """
     #knn_predict_result = neigh.predict(testfeatures)
     # y_pred = neigh.predict(X_test)
     
