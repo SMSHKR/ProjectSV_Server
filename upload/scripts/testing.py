@@ -79,16 +79,11 @@ def testSignature(path, image):
     # vote_result = loaded_model.predict(testfeatures)
     # print("Voted")
     # print(vote_result) 
-    count = 0
     perse = [SVM_result.tolist()]
-    if(perse == ['fake']):
-        count = False
-    else:
-        count = True
 
     my_details = {
-        'vote': count,
-        'fake_ratio': SVM_prob[1]
+        'vote': perse[0][0] != 'fake',
+        'fake_ratio': SVM_prob[0][1]
     }
     """ with open('personal.json', 'w') as json_file:
         json.dump(my_details, json_file) """
